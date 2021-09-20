@@ -1,7 +1,7 @@
 #include <dgoods.hpp>
 #include <math.h>
 
-ACTION dgoods::setconfig(const symbol_code& sym, const string& version) {
+ACTION dgoods::setconfig(const symbol_code& sym, const string& version, const string& provenace_hash) {
 
     require_auth( get_self() );
     // valid symbol
@@ -9,10 +9,11 @@ ACTION dgoods::setconfig(const symbol_code& sym, const string& version) {
 
     // can only have one symbol per contract
     config_index config_table(get_self(), get_self().value);
-    auto config_singleton  = config_table.get_or_create( get_self(), tokenconfigs{ "dgoods"_n, version, sym, 1, 1 } );
+    auto config_singleton  = config_table.get_or_create( get_self(), tokenconfigs{ "dgoods"_n, version, provenace_hash, sym, 1, 1 } );
 
     // setconfig will always update version when called
     config_singleton.version = version;
+    config_singleton.provenace_hash = provenace_hash;
     config_table.set( config_singleton, get_self() );
 }
 

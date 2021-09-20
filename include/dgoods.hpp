@@ -22,7 +22,8 @@ CONTRACT dgoods: public contract {
             : contract(receiver, code, ds) {}
 
         ACTION setconfig(const symbol_code& symbol,
-                         const string& version);
+                         const string& version,
+                         const string& provenace_hash);
 
         ACTION create(const name& issuer,
                       const name& rev_partner,
@@ -105,6 +106,7 @@ CONTRACT dgoods: public contract {
         TABLE tokenconfigs {
             name standard;
             string version;
+            string provenace_hash;
             symbol_code symbol;
             uint64_t category_name_id;
             uint64_t next_dgood_id;
