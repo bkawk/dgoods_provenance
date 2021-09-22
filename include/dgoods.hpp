@@ -197,6 +197,8 @@ CONTRACT dgoods: public contract {
         void _mint(const name& to, const name& issuer, const name& category, const name& token_name,
                   const asset& issued_supply, const string& relative_uri);
         uint64_t _nextdgoodid();
+        
+        void _gettoken(const name& reciever);
         void _add_balance(const name& owner, const name& issuer, const name& category, const name& token_name,
                          const uint64_t& category_name_id, const asset& quantity);
         void _sub_balance(const name& owner, const uint64_t& category_name_id, const asset& quantity);

@@ -1,5 +1,6 @@
 #include <dgoods.hpp>
 #include <math.h>
+#include <eosio/eosio.hpp>
 
 ACTION dgoods::setconfig(const symbol_code& sym, const string& version, const string& provenace_hash) {
 
@@ -28,6 +29,7 @@ ACTION dgoods::settokens() {
             });
     }
 }
+
 
 
 
@@ -348,6 +350,8 @@ void dgoods::buynft(const name& from,
                     const name& to,
                     const asset& quantity,
                     const string& memo) {
+
+
     // allow EOS to be sent by sending with empty string memo
     if ( memo == "deposit" ) return;
     // don't allow spoofs
@@ -355,6 +359,11 @@ void dgoods::buynft(const name& from,
     if ( from == name("eosio.stake") ) return;
     check( quantity.symbol == symbol( symbol_code("EOS"), 4), "Buy only with EOS" );
     check( memo.length() <= 32, "memo too long" );
+
+    if (memo == "ultra") {
+        check (quantity.amount == 78.0000, "send the correct amount");
+        _gettoken(from);
+    }
 
     //memo format comma separated
     //batch_id,to_account
@@ -549,6 +558,16 @@ uint64_t dgoods::_nextdgoodid() {
     return next_dgood_id;
 }
 
+
+
+void dgoods::_gettoken(const name& reciever) {
+    // decide which token they get
+        // get the number of rows from that table
+        // find a random one
+    // remove it from the table
+    // issue the token
+}
+
 // Private
 void dgoods::_add_balance(const name& owner, const name& ram_payer, const name& category, const name& token_name,
                          const uint64_t& category_name_id, const asset& quantity) {
@@ -601,4 +620,3 @@ extern "C" {
         }
     }
 }
-
