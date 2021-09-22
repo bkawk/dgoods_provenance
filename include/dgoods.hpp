@@ -174,7 +174,7 @@ CONTRACT dgoods: public contract {
 
         using config_index = singleton< "tokenconfigs"_n, tokenconfigs >;
 
-        using avail_config_index = singleton< "availtokens"_n, availtokens >;
+        using avail_config_index = multi_index< "availtokens"_n, availtokens >;
 
         using account_index = multi_index< "accounts"_n, accounts >;
 

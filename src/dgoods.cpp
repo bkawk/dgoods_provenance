@@ -19,19 +19,14 @@ ACTION dgoods::setconfig(const symbol_code& sym, const string& version, const st
 }
 
 
-ACTION dgoods::settokens() {
-
-
-// TODO:  See locked nfts table for example 
+ACTION dgoods::settokens() { 
     require_auth( get_self() );
-
     avail_config_index avail_table (get_self(), get_self().value); 
-
     for(int i = 0; i< 10; i++) {
-             avail_table.emplace( "", [&]( auto& cat ) {
-            cat.token_id = i;
-    });
- }
+             avail_table.emplace( _self, [&]( auto &cat ) {
+                 cat.token_id = i;
+            });
+    }
 }
 
 
