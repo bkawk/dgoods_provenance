@@ -11,11 +11,30 @@ ACTION dgoods::setconfig(const symbol_code& sym, const string& version, const st
     config_index config_table(get_self(), get_self().value);
     auto config_singleton  = config_table.get_or_create( get_self(), tokenconfigs{ "dgoods"_n, version, provenace_hash, sym, 1, 1 } );
 
+
     // setconfig will always update version when called
     config_singleton.version = version;
     config_singleton.provenace_hash = provenace_hash;
     config_table.set( config_singleton, get_self() );
 }
+
+
+ACTION dgoods::settokens() {
+
+
+// TODO:  See locked nfts table for example 
+    require_auth( get_self() );
+
+    avail_config_index avail_table (get_self(), get_self().value); 
+
+    for(int i = 0; i< 10; i++) {
+             avail_table.emplace( "", [&]( auto& cat ) {
+            cat.token_id = i;
+    });
+ }
+}
+
+
 
 ACTION dgoods::create(const name& issuer,
                       const name& rev_partner,
@@ -576,7 +595,7 @@ extern "C" {
 
         if ( code == self ) {
             switch( action ) {
-                EOSIO_DISPATCH_HELPER( dgoods, (setconfig)(create)(issue)(burnnft)(burnft)(transfernft)(transferft)(listsalenft)(closesalenft)(logcall)(freezemaxsup) )
+                EOSIO_DISPATCH_HELPER( dgoods, (setconfig)(settokens)(create)(issue)(burnnft)(burnft)(transfernft)(transferft)(listsalenft)(closesalenft)(logcall)(freezemaxsup) )
             }
         }
 

@@ -52,6 +52,16 @@
             ]
         },
         {
+            "name": "availtokens",
+            "base": "",
+            "fields": [
+                {
+                    "name": "token_id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
             "name": "burnft",
             "base": "",
             "fields": [
@@ -380,6 +390,11 @@
             ]
         },
         {
+            "name": "settokens",
+            "base": "",
+            "fields": []
+        },
+        {
             "name": "tokenconfigs",
             "base": "",
             "fields": [
@@ -514,6 +529,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "settokens",
+            "type": "settokens",
+            "ricardian_contract": ""
+        },
+        {
             "name": "transferft",
             "type": "transferft",
             "ricardian_contract": ""
@@ -535,6 +555,13 @@
         {
             "name": "asks",
             "type": "asks",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "availtokens",
+            "type": "availtokens",
             "index_type": "i64",
             "key_names": [],
             "key_types": []

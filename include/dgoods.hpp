@@ -25,6 +25,8 @@ CONTRACT dgoods: public contract {
                          const string& version,
                          const string& provenace_hash);
 
+        ACTION settokens();
+
         ACTION create(const name& issuer,
                       const name& rev_partner,
                       const name& category,
@@ -112,6 +114,11 @@ CONTRACT dgoods: public contract {
             uint64_t next_dgood_id;
         };
 
+        TABLE availtokens {
+            uint64_t token_id;
+            uint64_t primary_key() const { return token_id; }
+        };
+
         TABLE categoryinfo {
             name category;
 
@@ -166,6 +173,8 @@ CONTRACT dgoods: public contract {
         };
 
         using config_index = singleton< "tokenconfigs"_n, tokenconfigs >;
+
+        using avail_config_index = singleton< "availtokens"_n, availtokens >;
 
         using account_index = multi_index< "accounts"_n, accounts >;
 
